@@ -163,7 +163,7 @@ export interface Incident {
 export interface NotificationChannel {
   id: string
   name: string
-  type: 'discord' | 'slack' | 'telegram' | 'email' | 'ntfy' | 'pushover' | 'webhook' | 'apprise'
+  type: 'discord' | 'slack' | 'telegram' | 'email' | 'ntfy' | 'pushover' | 'webhook' | 'apprise' | 'googlechat'
   config: string
   active: boolean
   isDefault: boolean
