@@ -57,7 +57,7 @@ export function channelTypeLabel(type: string): string {
   const labels: Record<string, string> = {
     discord: 'Discord', slack: 'Slack', telegram: 'Telegram',
     email: 'Email', ntfy: 'ntfy', pushover: 'Pushover',
-    webhook: 'Webhook', apprise: 'Apprise API',
+    webhook: 'Webhook', apprise: 'Apprise API', googlechat: 'Google Chat',
   }
   return labels[type] ?? type
 }
@@ -66,7 +66,7 @@ export function channelTypeIcon(type: string): string {
   const icons: Record<string, string> = {
     discord: '💬', slack: '🔔', telegram: '✈️',
     email: '📧', ntfy: '📣', pushover: '📱',
-    webhook: '🔗', apprise: '🔀',
+    webhook: '🔗', apprise: '🔀', googlechat: '💼',
   }
   return icons[type] ?? '🔔'
 }

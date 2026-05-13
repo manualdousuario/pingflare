@@ -58,7 +58,7 @@ export const incidents = sqliteTable('incidents', {
 export const notificationChannels = sqliteTable('notification_channels', {
   id: text('id').primaryKey(),
   name: text('name').notNull(),
-  type: text('type').notNull().$type<'discord' | 'slack' | 'telegram' | 'email' | 'ntfy' | 'pushover' | 'webhook' | 'apprise'>(),
+  type: text('type').notNull().$type<'discord' | 'slack' | 'telegram' | 'email' | 'ntfy' | 'pushover' | 'webhook' | 'apprise' | 'googlechat'>(),
   config: text('config').notNull().default('{}'),
   active: integer('active', { mode: 'boolean' }).notNull().default(true),
   isDefault: integer('is_default', { mode: 'boolean' }).notNull().default(false),

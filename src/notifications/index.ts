@@ -7,6 +7,7 @@ import { sendNtfy } from './ntfy'
 import { sendPushover } from './pushover'
 import { sendWebhook } from './webhook'
 import { sendApprise } from './apprise'
+import { sendGoogleChat } from './googlechat'
 import { SENSITIVE_FIELDS, isEncryptedValue, decryptField } from '../utils'
 export { formatMessage } from './messages'
 
@@ -41,7 +42,8 @@ export async function sendNotification(
     case 'email':    return sendEmail(config, payload, locale)
     case 'ntfy':     return sendNtfy(config, payload, locale)
     case 'pushover': return sendPushover(config, payload, locale)
-    case 'webhook':  return sendWebhook(config, payload)
-    case 'apprise':  return sendApprise(config, payload, locale)
+    case 'webhook':     return sendWebhook(config, payload)
+    case 'apprise':     return sendApprise(config, payload, locale)
+    case 'googlechat':  return sendGoogleChat(config, payload, locale)
   }
 }

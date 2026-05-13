@@ -10,7 +10,7 @@
 
   const dispatch = createEventDispatcher<{ saved: NotificationChannel; cancel: void }>()
 
-  const CHANNEL_TYPES = ['discord', 'slack', 'telegram', 'email', 'ntfy', 'pushover', 'webhook', 'apprise'] as const
+  const CHANNEL_TYPES = ['discord', 'slack', 'telegram', 'email', 'ntfy', 'pushover', 'webhook', 'apprise', 'googlechat'] as const
 
   let name = channel.name ?? ''
   let type: typeof CHANNEL_TYPES[number] = (channel.type as typeof CHANNEL_TYPES[number]) ?? 'discord'
@@ -60,6 +60,9 @@
       { key: 'url',   label: $t('notifField.appriseApiUrl'),     placeholder: 'http://apprise:8000' },
       { key: 'urls',  label: $t('notifField.notificationUrls'),  placeholder: 'slack://tokenA/tokenB/tokenC' },
       { key: 'token', label: $t('notifField.apiTokenOptional'),  placeholder: '', secret: true },
+    ],
+    googlechat: [
+      { key: 'webhookUrl', label: $t('notifField.webhookUrl'), placeholder: 'https://chat.googleapis.com/v1/spaces/.../messages?key=...' },
     ],
   } as Record<string, { key: string; label: string; placeholder: string; type?: string; secret?: boolean }[]>
 
