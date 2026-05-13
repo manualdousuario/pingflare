@@ -4,12 +4,17 @@ import fs from 'node:fs'
 
 class ShimStatement {
   constructor(
-    private readonly stmt: Database.Statement,
+    private readonly db: Database.Database,
+    private readonly sql: string,
     private readonly values: unknown[] = [],
   ) {}
 
+  private get stmt(): Database.Statement {
+    return this.db.prepare(this.sql)
+  }
+
   bind(...args: unknown[]): ShimStatement {
-    return new ShimStatement(this.stmt, args)
+    return new ShimStatement(this.db, this.sql, args)
   }
 
   async first<T = Record<string, unknown>>(colName?: string): Promise<T | null> {
@@ -74,7 +79,7 @@ export class D1Shim {
   constructor(private readonly db: Database.Database) {}
 
   prepare(sql: string): ShimStatement {
-    return new ShimStatement(this.db.prepare(sql))
+    return new ShimStatement(this.db, sql)
   }
 
   async batch(stmts: ShimStatement[]): Promise<{ success: boolean }[]> {
