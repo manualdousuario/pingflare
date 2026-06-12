@@ -178,16 +178,6 @@ export async function runCron(env: Env): Promise<void> {
 
   for (let i = 0; i < checkResults.length; i += CONCURRENCY) {
     await Promise.allSettled(
-      checkResults.slice(i, i + CONCURRENCY).map(r => {
-        const updateSet: Record<string, unknown> = { lastCheckedAt: now }
-        if (r.sslStatus !== undefined) updateSet.sslStatus = r.sslStatus
-        return db.update(monitors).set(updateSet).where(eq(monitors.id, r.monitor.id))
-      })
-    )
-  }
-
-  for (let i = 0; i < checkResults.length; i += CONCURRENCY) {
-    await Promise.allSettled(
       checkResults.slice(i, i + CONCURRENCY).map(r =>
         processAlert({
           db,
@@ -196,6 +186,7 @@ export async function runCron(env: Env): Promise<void> {
           message: r.alertInput.message,
           responseTimeMs: r.alertInput.responseTimeMs,
           encryptionKey: env.ENCRYPTION_KEY,
+          sslStatus: r.sslStatus,
         }).catch(err => console.error(`[cron] alert error for ${r.monitor.id}:`, err))
       )
     )
